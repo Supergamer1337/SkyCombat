@@ -1,6 +1,9 @@
 <script>
 	import TurnTracker from './components/TurnTracker.svelte';
 	import Button from './components/Button.svelte';
+	import { turns } from '../stores/TurnStore.js';
+
+	$: console.log($turns);
 </script>
 
 <div class="card c">
