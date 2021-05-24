@@ -3,6 +3,7 @@
 	import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
 	import CharacterCard from './components/CharacterCard.svelte';
 	import InputBox from './components/InputBox.svelte';
+	import AddPlayer from './components/AddPlayer.svelte';
 
 	let menuOpen = false;
 
@@ -68,7 +69,7 @@
 
 {#if menuOpen}
 	<InputBox closeMenu={openMenu}>
-		<p>Hello there!</p>
+		<AddPlayer />
 	</InputBox>
 {/if}
 
