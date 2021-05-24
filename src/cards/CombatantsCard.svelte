@@ -2,12 +2,22 @@
 	import Fa from 'svelte-fa';
 	import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
 	import CharacterCard from './components/CharacterCard.svelte';
+	import InputBox from './components/InputBox.svelte';
+
+	let menuOpen = false;
+
+	function openMenu() {
+		menuOpen = !menuOpen;
+		console.log(menuOpen);
+	}
 </script>
 
 <div class="card a">
 	<div class="header-container">
 		<p class="section-header">Players</p>
-		<Fa icon={faPlus} />
+		<div on:click={openMenu}>
+			<Fa on:click={openMenu} icon={faPlus} />
+		</div>
 	</div>
 
 	<div class="char-container">
@@ -55,6 +65,12 @@
 		/>
 	</div>
 </div>
+
+{#if menuOpen}
+	<InputBox closeMenu={openMenu}>
+		<p>Hello there!</p>
+	</InputBox>
+{/if}
 
 <style>
 	.card {
