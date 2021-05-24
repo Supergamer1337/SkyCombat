@@ -34,12 +34,12 @@
 		width: 0%;
 		backdrop-filter: brightness(50%);
 		border-radius: 0 25em 25em 0;
-		transition: width 0.25s ease-in;
+		transition: width 250ms ease-out;
 	}
 
 	button:hover::before,
 	button:focus::before {
-		width: 120%;
+		width: 125%;
 	}
 
 	.big {

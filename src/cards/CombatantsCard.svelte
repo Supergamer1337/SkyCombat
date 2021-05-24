@@ -25,6 +25,7 @@
 		{#each $players as player, id}
 			<CharacterCard
 				player
+				{id}
 				name={player.name}
 				woundThreshold={player.woundThreshold}
 				wounds={player.wound}

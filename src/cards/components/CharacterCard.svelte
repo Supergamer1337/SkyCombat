@@ -5,7 +5,9 @@
 	import Button from './Button.svelte';
 	import BoostIcon from './BoostIcon.svelte';
 	import SetbackIcon from './SetbackIcon.svelte';
+	import { players } from '../../stores/CharacterStore.js';
 
+	export let id = undefined;
 	export let name = '';
 	export let woundThreshold = 10;
 	export let wounds = 0;
@@ -14,6 +16,26 @@
 
 	export let player = false;
 	export let enemy = false;
+
+	function addBoost() {
+		if (player) {
+			players.update(playerArray => {
+				let newPlayerArray = playerArray;
+				newPlayerArray[id].boost += 1;
+				return [...newPlayerArray];
+			});
+		}
+	}
+
+	function addSetback() {
+		if (player) {
+			players.update(playerArray => {
+				let newPlayerArray = playerArray;
+				newPlayerArray[id].setback += 1;
+				return [...newPlayerArray];
+			});
+		}
+	}
 </script>
 
 <div class:player class:enemy class="card">
@@ -30,8 +52,18 @@
 
 	<div class="row-container">
 		<Button small color="var(--other-action-color)" label="Ativate" />
-		<Button small color="var(--setback-color)" label="+Setback" />
-		<Button small color="var(--boost-color)" label="+Boost" />
+		<Button
+			on:click={addSetback}
+			small
+			color="var(--setback-color)"
+			label="+Setback"
+		/>
+		<Button
+			on:click={addBoost}
+			small
+			color="var(--boost-color)"
+			label="+Boost"
+		/>
 	</div>
 
 	<div class="row-container">
