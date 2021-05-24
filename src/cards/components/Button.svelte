@@ -17,6 +17,10 @@
 		cursor: pointer;
 		overflow: hidden;
 		position: relative;
+		font-size: 1.2rem;
+		font-weight: 500;
+		width: 8em;
+		height: 3em;
 	}
 
 	button:before {
@@ -28,7 +32,7 @@
 		width: 0%;
 		backdrop-filter: brightness(50%);
 		border-radius: 0 25em 25em 0;
-		transition: width 0.3s ease-in-out;
+		transition: width 0.25s ease-in;
 	}
 
 	button:hover::before {
