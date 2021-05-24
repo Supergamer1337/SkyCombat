@@ -21,6 +21,7 @@
 		background-color: var(--secondary-background);
 		color: var(--primary-text);
 		padding: 2em;
+		border-radius: var(--primary-rounding);
 	}
 
 	.title {
