@@ -4,24 +4,51 @@
 	import { onMount } from 'svelte';
 
 	export let closeMenu = undefined;
-	let name = '';
-	let woundThreshold = '';
-	let nameInput = undefined;
 	export let enemy = false;
 	export let player = false;
+
+	let name = '';
+	let woundThreshold = '';
+	let success = 0;
+	let triumph = 0;
+	let advantage = 0;
+
+	let nameInput = undefined;
 
 	function addPlayer(e) {
 		e.preventDefault();
 		if (player) {
 			players.update(playerArray => [
 				...playerArray,
-				{ name, woundThreshold, wound: 0, boost: 0, setback: 0 }
+				{
+					name,
+					woundThreshold,
+					wound: 0,
+					boost: 0,
+					setback: 0,
+					initiative: {
+						success,
+						triumph,
+						advantage
+					}
+				}
 			]);
 		}
 		if (enemy) {
 			enemies.update(enemyArray => [
 				...enemyArray,
-				{ name, woundThreshold, wound: 0, boost: 0, setback: 0 }
+				{
+					name,
+					woundThreshold,
+					wound: 0,
+					boost: 0,
+					setback: 0,
+					initiative: {
+						success,
+						triumph,
+						advantage
+					}
+				}
 			]);
 		}
 		closeMenu();
@@ -41,7 +68,6 @@
 		placeholder="Character Name"
 		class="text-input"
 		type="text"
-		name="Name"
 		bind:value={name}
 	/>
 	<input
@@ -50,9 +76,41 @@
 		placeholder="Wounds"
 		class="number-input"
 		type="number"
-		name="WoundThreshold"
 		bind:value={woundThreshold}
 	/>
+
+	<div class="initiative">
+		<label>
+			<input
+				class:player
+				class:enemy
+				class="initiative-input"
+				type="number"
+				bind:value={success}
+			/>
+			<p>Success</p>
+		</label>
+		<label>
+			<input
+				class:player
+				class:enemy
+				class="initiative-input"
+				type="number"
+				bind:value={triumph}
+			/>
+			<p>Triumph</p>
+		</label>
+		<label>
+			<input
+				class:player
+				class:enemy
+				class="initiative-input"
+				type="number"
+				bind:value={advantage}
+			/>
+			<p>Advantage</p>
+		</label>
+	</div>
 
 	<div class="button-container">
 		<Button
@@ -109,6 +167,25 @@
 
 	.number-input:focus {
 		width: 10em;
+	}
+
+	.initiative {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 90%;
+		margin: auto;
+	}
+
+	.initiative label {
+		text-align: center;
+		font-size: 1.2rem;
+		font-weight: 500;
+	}
+
+	.initiative-input {
+		width: 6em;
+		margin-bottom: 0.4em;
 	}
 
 	.button-container {
