@@ -1,5 +1,19 @@
 <script>
 	import Button from './components/Button.svelte';
+	import { playerBoosts, enemyBoosts } from '../stores/BoostStore.js';
+
+	function addToBoostStore() {
+		playerBoosts.update(n => n + 1);
+	}
+
+	function removeFromBoostStore() {
+		playerBoosts.update(n => {
+			if (n <= 0) {
+				return n - 1;
+			}
+			return n;
+		});
+	}
 </script>
 
 <div class="card b">
@@ -12,7 +26,11 @@
 
 	<p class="title" style="margin-top: 1em;">Anyone's Turn</p>
 	<div class="button-container">
-		<Button color="var(--boost-color)" label="+Boost" />
+		<Button
+			on:click={addToBoostStore}
+			color="var(--boost-color)"
+			label="+Boost"
+		/>
 	</div>
 </div>
 

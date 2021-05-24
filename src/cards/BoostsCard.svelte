@@ -1,20 +1,20 @@
 <script>
 	import BoostIcon from './components/BoostIcon.svelte';
+	import { playerBoosts, enemyBoosts } from '../stores/BoostStore.js';
 
-	let playerBoosts = 4;
-	let enemyBoosts = 2;
+	$: console.log($playerBoosts);
 </script>
 
 <div class="card d">
 	<p class="title">Available Player Boosts:</p>
 	<div class="boost-container">
-		{#each Array(playerBoosts) as _}
+		{#each Array($playerBoosts) as _}
 			<BoostIcon />
 		{/each}
 	</div>
 	<p style="margin-top: 1em;" class="title">Available Enemy Boosts:</p>
 	<div class="boost-container">
-		{#each Array(enemyBoosts) as _}
+		{#each Array($enemyBoosts) as _}
 			<BoostIcon />
 		{/each}
 	</div>
