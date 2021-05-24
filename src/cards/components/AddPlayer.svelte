@@ -1,5 +1,7 @@
 <script>
 	import Button from './Button.svelte';
+
+	export let closeMenu = undefined;
 </script>
 
 <form>
@@ -18,8 +20,14 @@
 	/>
 
 	<div class="button-container">
-		<Button label="Submit" color="var(--player-color)" />
-		<Button small label="Cancel" color="var(--other-action-color)" />
+		<Button label="Add" color="var(--player-color)" />
+		<Button
+			on:click={closeMenu}
+			type="button"
+			small
+			label="Cancel"
+			color="var(--other-action-color)"
+		/>
 	</div>
 </form>
 

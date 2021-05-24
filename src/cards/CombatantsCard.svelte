@@ -69,7 +69,7 @@
 
 {#if menuOpen}
 	<InputBox closeMenu={openMenu}>
-		<AddPlayer />
+		<AddPlayer closeMenu={openMenu} />
 	</InputBox>
 {/if}
 

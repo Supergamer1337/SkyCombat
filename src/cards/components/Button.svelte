@@ -4,9 +4,10 @@
 
 	export let label = '';
 	export let color = '';
+	export let type = 'button';
 </script>
 
-<button on:click class:small class:big style="background-color: {color}">
+<button {type} on:click class:small class:big style="background-color: {color}">
 	{label}
 </button>
 
@@ -36,7 +37,8 @@
 		transition: width 0.25s ease-in;
 	}
 
-	button:hover::before {
+	button:hover::before,
+	button:focus::before {
 		width: 120%;
 	}
 
