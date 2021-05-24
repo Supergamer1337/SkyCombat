@@ -36,6 +36,27 @@
 			});
 		}
 	}
+
+	function increaseWounds() {
+		if (player) {
+			players.update(playerArray => {
+				let newPlayerArray = playerArray;
+				newPlayerArray[id].wound += 1;
+				return [...newPlayerArray];
+			});
+		}
+	}
+
+	function decreaseWounds() {
+		if (player) {
+			players.update(playerArray => {
+				let newPlayerArray = playerArray;
+				newPlayerArray[id].wound -= 1;
+				if (newPlayerArray[id].wound < 0) newPlayerArray.splice(id, 1);
+				return [...newPlayerArray];
+			});
+		}
+	}
 </script>
 
 <div class:player class:enemy class="card">
@@ -43,8 +64,12 @@
 		<p class="main-text">{name}</p>
 		<div class="wounds-container">
 			<div class="icon-container">
-				<Fa icon={faMinus} />
-				<Fa icon={faPlus} />
+				<div on:click={decreaseWounds}>
+					<Fa icon={faMinus} />
+				</div>
+				<div on:click={increaseWounds}>
+					<Fa icon={faPlus} />
+				</div>
 			</div>
 			<p class="main-text">{wounds}/{woundThreshold}</p>
 		</div>
@@ -92,6 +117,7 @@
 		width: 23em;
 		padding: 1em;
 		border-radius: var(--primary-rounding);
+		user-select: none;
 	}
 
 	.row-container {
@@ -105,7 +131,9 @@
 		display: flex;
 	}
 
-	.wounds-container div {
+	.icon-container {
+		display: flex;
+		gap: 0.3em;
 		margin-right: 0.5em;
 		font-size: 1.2rem;
 	}

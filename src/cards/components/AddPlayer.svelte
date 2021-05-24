@@ -1,10 +1,12 @@
 <script>
 	import Button from './Button.svelte';
 	import { players } from './../../stores/CharacterStore.js';
+	import { onMount } from 'svelte';
 
 	export let closeMenu = undefined;
 	let name = '';
 	let woundThreshold = '';
+	let nameInput = undefined;
 
 	function addPlayer(e) {
 		e.preventDefault();
@@ -14,11 +16,16 @@
 		]);
 		closeMenu();
 	}
+
+	onMount(() => {
+		nameInput.focus();
+	});
 </script>
 
 <form on:submit={addPlayer}>
 	<p class="title">Add New Player</p>
 	<input
+		bind:this={nameInput}
 		placeholder="Character Name"
 		class="text-input"
 		type="text"
