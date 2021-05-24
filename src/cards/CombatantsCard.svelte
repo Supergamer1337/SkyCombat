@@ -4,7 +4,7 @@
 	import CharacterCard from './components/CharacterCard.svelte';
 	import InputBox from './components/InputBox.svelte';
 	import AddPlayer from './components/AddPlayer.svelte';
-	import { players } from '../stores/CharacterStore.js';
+	import { players, enemies } from '../stores/CharacterStore.js';
 
 	let playerMenuOpen = false;
 	let enemyMenuOpen = false;
@@ -47,23 +47,17 @@
 	</div>
 
 	<div class="char-container">
-		<CharacterCard
-			enemy
-			name="Bandit Group 1"
-			woundThreshold={9}
-			wounds={0}
-			boostDice={0}
-			setbackDice={1}
-		/>
-
-		<CharacterCard
-			enemy
-			name="Bandit Group 2"
-			woundThreshold={9}
-			wounds={3}
-			boostDice={2}
-			setbackDice={0}
-		/>
+		{#each $enemies as enemy, id}
+			<CharacterCard
+				enemy
+				{id}
+				name={enemy.name}
+				woundThreshold={enemy.woundThreshold}
+				wounds={enemy.wound}
+				boostDice={enemy.boost}
+				setbackDice={enemy.setback}
+			/>
+		{/each}
 	</div>
 </div>
 

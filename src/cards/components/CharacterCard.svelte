@@ -5,7 +5,7 @@
 	import Button from './Button.svelte';
 	import BoostIcon from './BoostIcon.svelte';
 	import SetbackIcon from './SetbackIcon.svelte';
-	import { players } from '../../stores/CharacterStore.js';
+	import { players, enemies } from '../../stores/CharacterStore.js';
 
 	export let id = undefined;
 	export let name = '';
@@ -25,6 +25,13 @@
 				return [...newPlayerArray];
 			});
 		}
+		if (enemy) {
+			enemies.update(enemyArray => {
+				let newEnemyArray = enemyArray;
+				newEnemyArray[id].boost += 1;
+				return [...newEnemyArray];
+			});
+		}
 	}
 
 	function addSetback() {
@@ -33,6 +40,13 @@
 				let newPlayerArray = playerArray;
 				newPlayerArray[id].setback += 1;
 				return [...newPlayerArray];
+			});
+		}
+		if (enemy) {
+			enemies.update(enemyArray => {
+				let newEnemyArray = enemyArray;
+				newEnemyArray[id].setback += 1;
+				return [...newEnemyArray];
 			});
 		}
 	}
@@ -45,6 +59,13 @@
 				return [...newPlayerArray];
 			});
 		}
+		if (enemy) {
+			enemies.update(enemyArray => {
+				let newEnemyArray = enemyArray;
+				newEnemyArray[id].wound += 1;
+				return [...newEnemyArray];
+			});
+		}
 	}
 
 	function decreaseWounds() {
@@ -54,6 +75,14 @@
 				newPlayerArray[id].wound -= 1;
 				if (newPlayerArray[id].wound < 0) newPlayerArray.splice(id, 1);
 				return [...newPlayerArray];
+			});
+		}
+		if (enemy) {
+			enemies.update(enemyArray => {
+				let newEnemyArray = enemyArray;
+				newEnemyArray[id].wound -= 1;
+				if (newEnemyArray[id].wound < 0) newEnemyArray.splice(id, 1);
+				return [...newEnemyArray];
 			});
 		}
 	}

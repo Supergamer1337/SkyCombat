@@ -1,6 +1,6 @@
 <script>
 	import Button from './Button.svelte';
-	import { players } from './../../stores/CharacterStore.js';
+	import { players, enemies } from './../../stores/CharacterStore.js';
 	import { onMount } from 'svelte';
 
 	export let closeMenu = undefined;
@@ -15,6 +15,12 @@
 		if (player) {
 			players.update(playerArray => [
 				...playerArray,
+				{ name, woundThreshold, wound: 0, boost: 0, setback: 0 }
+			]);
+		}
+		if (enemy) {
+			enemies.update(enemyArray => [
+				...enemyArray,
 				{ name, woundThreshold, wound: 0, boost: 0, setback: 0 }
 			]);
 		}
