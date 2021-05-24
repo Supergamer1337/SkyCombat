@@ -1,26 +1,40 @@
 <script>
 	import Button from './Button.svelte';
+	import { players } from './../../stores/CharacterStore.js';
 
 	export let closeMenu = undefined;
+	let name = '';
+	let woundThreshold = '';
+
+	function addPlayer(e) {
+		e.preventDefault();
+		players.update(playerArray => [
+			...playerArray,
+			{ name, woundThreshold, wound: 0, boost: 0, setback: 0 }
+		]);
+		closeMenu();
+	}
 </script>
 
-<form>
+<form on:submit={addPlayer}>
 	<p class="title">Add New Player</p>
 	<input
 		placeholder="Character Name"
 		class="text-input"
 		type="text"
 		name="Name"
+		bind:value={name}
 	/>
 	<input
 		placeholder="Wounds"
 		class="number-input"
 		type="number"
 		name="WoundThreshold"
+		bind:value={woundThreshold}
 	/>
 
 	<div class="button-container">
-		<Button label="Add" color="var(--player-color)" />
+		<Button type="submit" label="Add" color="var(--player-color)" />
 		<Button
 			on:click={closeMenu}
 			type="button"

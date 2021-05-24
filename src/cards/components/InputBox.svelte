@@ -1,6 +1,5 @@
 <script>
 	export let closeMenu = undefined;
-	console.log(closeMenu);
 
 	/* Animation */
 	import { fade, fly } from 'svelte/transition';

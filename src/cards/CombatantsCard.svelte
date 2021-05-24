@@ -4,12 +4,12 @@
 	import CharacterCard from './components/CharacterCard.svelte';
 	import InputBox from './components/InputBox.svelte';
 	import AddPlayer from './components/AddPlayer.svelte';
+	import { players } from '../stores/CharacterStore.js';
 
 	let menuOpen = false;
 
 	function openMenu() {
 		menuOpen = !menuOpen;
-		console.log(menuOpen);
 	}
 </script>
 
@@ -22,23 +22,16 @@
 	</div>
 
 	<div class="char-container">
-		<CharacterCard
-			player
-			name="Erwald"
-			woundThreshold={12}
-			wounds={0}
-			boostDice={2}
-			setbackDice={2}
-		/>
-
-		<CharacterCard
-			player
-			name="Godwin"
-			woundThreshold={14}
-			wounds={2}
-			boostDice={1}
-			setbackDice={0}
-		/>
+		{#each $players as player, id}
+			<CharacterCard
+				player
+				name={player.name}
+				woundThreshold={player.woundThreshold}
+				wounds={player.wound}
+				boostDice={player.boost}
+				setbackDice={player.setback}
+			/>
+		{/each}
 	</div>
 
 	<div class="header-container" style="margin-top: 2em;">
