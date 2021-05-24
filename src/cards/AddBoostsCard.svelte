@@ -1,40 +1,37 @@
 <script>
-    import Button from './components/Button.svelte'
+	import Button from './components/Button.svelte';
 </script>
 
-<div class="card" >
-    <p class="title" >Next Ally/Enemy</p>
+<div class="card b">
+	<p class="title">Next Ally/Enemy</p>
 
-    <div class="button-container" >
-        <Button color="var(--boost-color)" label="+Boost" />
-        <Button color="var(--setback-color)" label="+Setback" />
-    </div>
+	<div class="button-container">
+		<Button color="var(--boost-color)" label="+Boost" />
+		<Button color="var(--setback-color)" label="+Setback" />
+	</div>
 
-    <p class="title" style="margin-top: 1em;" >Anyone's Turn</p>
-    <div class="button-container" >
-        <Button color="var(--boost-color)" label="+Boost" />
-    </div>
-
+	<p class="title" style="margin-top: 1em;">Anyone's Turn</p>
+	<div class="button-container">
+		<Button color="var(--boost-color)" label="+Boost" />
+	</div>
 </div>
 
 <style>
-    .card {
-        background-color: var(--secondary-background);
-        color: var(--primary-text);
-        width: 24em;
-        margin: 1em auto;
-        padding: 2em;
-    }
+	.card {
+		background-color: var(--secondary-background);
+		color: var(--primary-text);
+		padding: 2em;
+	}
 
-    .title {
-        font-size: 1.2rem;
-        font-weight: 600;
-    }
+	.title {
+		font-size: 1.2rem;
+		font-weight: 600;
+	}
 
-    .button-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        margin-top: 0.5em;
-    }
+	.button-container {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		margin-top: 0.5em;
+	}
 </style>

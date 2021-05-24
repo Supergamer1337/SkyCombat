@@ -5,7 +5,7 @@
 	let enemyBoosts = 2;
 </script>
 
-<div class="card">
+<div class="card d">
 	<p class="title">Available Player Boosts:</p>
 	<div class="boost-container">
 		{#each Array(playerBoosts) as _}
@@ -23,9 +23,7 @@
 <style>
 	.card {
 		background-color: var(--secondary-background);
-		width: 24em;
 		color: var(--primary-text);
-		margin: 1em auto;
 		padding: 2em;
 		border-radius: var(--primary-rounding);
 	}

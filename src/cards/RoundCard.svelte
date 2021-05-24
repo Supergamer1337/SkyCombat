@@ -3,7 +3,7 @@
 	import Button from './components/Button.svelte';
 </script>
 
-<div class="card">
+<div class="card c">
 	<p class="card-header">Current Round: 1</p>
 
 	<TurnTracker />
@@ -18,9 +18,6 @@
 		background-color: var(--secondary-background);
 		color: var(--primary-text);
 		padding: 2em;
-
-		width: 24em;
-		margin: 1em auto;
 		border-radius: var(--primary-rounding);
 	}
 

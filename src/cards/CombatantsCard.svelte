@@ -4,7 +4,7 @@
 	import CharacterCard from './components/CharacterCard.svelte';
 </script>
 
-<div class="card">
+<div class="card a">
 	<div class="header-container">
 		<p class="section-header">Players</p>
 		<Fa icon={faPlus} />
@@ -60,10 +60,6 @@
 	.card {
 		background-color: var(--secondary-background);
 		color: var(--primary-text);
-		min-width: 27em;
-		width: 70em;
-		max-width: 50%;
-		margin: 1em auto;
 		padding: 2em;
 		border-radius: var(--primary-rounding);
 	}
