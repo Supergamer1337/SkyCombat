@@ -6,5 +6,3 @@
 </script>
 
 <CombatantsCard />
-
-<RoundCard />

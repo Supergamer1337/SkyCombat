@@ -1,11 +1,12 @@
 <script>
 	export let big = false;
+	export let small = false;
 
 	export let label = '';
 	export let color = '';
 </script>
 
-<button on:click class:big style="background-color: {color}">
+<button on:click class:small class:big style="background-color: {color}">
 	{label}
 </button>
 
@@ -44,5 +45,10 @@
 		font-size: 1.6rem;
 		font-weight: 600;
 		padding: 1em;
+	}
+
+	.small {
+		width: 5.5em;
+		height: 3em;
 	}
 </style>
