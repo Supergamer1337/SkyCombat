@@ -1,14 +1,32 @@
 {
-  "name": "skycombat",
-  "version": "0.0.0",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "serve": "vite preview"
-  },
-  "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.7",
-    "svelte": "^3.37.0",
-    "vite": "^2.3.3"
-  }
+	"name": "skycombat",
+	"version": "1.0.0",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"serve": "vite preview"
+	},
+	"devDependencies": {
+		"@sveltejs/vite-plugin-svelte": "^1.0.0-next.7",
+		"prettier": "^2.3.0",
+		"prettier-plugin-svelte": "^2.3.0",
+		"svelte": "^3.37.0",
+		"svelte-fa": "^2.2.0",
+		"vite": "^2.3.3"
+	},
+	"description": "This template should help get you started developing with Svelte in Vite.",
+	"main": "main.js",
+	"dependencies": {
+		"@fortawesome/free-solid-svg-icons": "^5.15.3"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Supergamer1337/SkyCombat.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/Supergamer1337/SkyCombat/issues"
+	},
+	"homepage": "https://github.com/Supergamer1337/SkyCombat#readme"
 }
