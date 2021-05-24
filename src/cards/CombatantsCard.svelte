@@ -6,18 +6,22 @@
 	import AddPlayer from './components/AddPlayer.svelte';
 	import { players } from '../stores/CharacterStore.js';
 
-	let menuOpen = false;
+	let playerMenuOpen = false;
+	let enemyMenuOpen = false;
 
-	function openMenu() {
-		menuOpen = !menuOpen;
+	function openPlayerMenu() {
+		playerMenuOpen = !playerMenuOpen;
+	}
+	function openEnemyMenu() {
+		enemyMenuOpen = !enemyMenuOpen;
 	}
 </script>
 
 <div class="card a">
 	<div class="header-container">
 		<p class="section-header">Players</p>
-		<div on:click={openMenu}>
-			<Fa on:click={openMenu} icon={faPlus} />
+		<div on:click={openPlayerMenu}>
+			<Fa icon={faPlus} />
 		</div>
 	</div>
 
@@ -37,7 +41,9 @@
 
 	<div class="header-container" style="margin-top: 2em;">
 		<p class="section-header">Enemies</p>
-		<Fa icon={faPlus} />
+		<div on:click={openEnemyMenu}>
+			<Fa icon={faPlus} />
+		</div>
 	</div>
 
 	<div class="char-container">
@@ -61,9 +67,15 @@
 	</div>
 </div>
 
-{#if menuOpen}
-	<InputBox closeMenu={openMenu}>
-		<AddPlayer closeMenu={openMenu} />
+{#if playerMenuOpen}
+	<InputBox closeMenu={openPlayerMenu}>
+		<AddPlayer player closeMenu={openPlayerMenu} />
+	</InputBox>
+{/if}
+
+{#if enemyMenuOpen}
+	<InputBox closeMenu={openEnemyMenu}>
+		<AddPlayer enemy closeMenu={openEnemyMenu} />
 	</InputBox>
 {/if}
 

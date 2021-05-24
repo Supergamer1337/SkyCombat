@@ -7,13 +7,17 @@
 	let name = '';
 	let woundThreshold = '';
 	let nameInput = undefined;
+	export let enemy = false;
+	export let player = false;
 
 	function addPlayer(e) {
 		e.preventDefault();
-		players.update(playerArray => [
-			...playerArray,
-			{ name, woundThreshold, wound: 0, boost: 0, setback: 0 }
-		]);
+		if (player) {
+			players.update(playerArray => [
+				...playerArray,
+				{ name, woundThreshold, wound: 0, boost: 0, setback: 0 }
+			]);
+		}
 		closeMenu();
 	}
 
@@ -23,8 +27,10 @@
 </script>
 
 <form on:submit={addPlayer}>
-	<p class="title">Add New Player</p>
+	<p class="title">Add New {player ? 'Player' : 'Enemy'}</p>
 	<input
+		class:player
+		class:enemy
 		bind:this={nameInput}
 		placeholder="Character Name"
 		class="text-input"
@@ -33,6 +39,8 @@
 		bind:value={name}
 	/>
 	<input
+		class:player
+		class:enemy
 		placeholder="Wounds"
 		class="number-input"
 		type="number"
@@ -41,7 +49,11 @@
 	/>
 
 	<div class="button-container">
-		<Button type="submit" label="Add" color="var(--player-color)" />
+		<Button
+			type="submit"
+			label="Add"
+			color={player ? 'var(--player-color)' : 'var(--enemy-color)'}
+		/>
 		<Button
 			on:click={closeMenu}
 			type="button"
@@ -64,7 +76,6 @@
 		background-color: var(--primary-background);
 		color: var(--primary-text);
 		padding: 0.5em 1em;
-		border: var(--player-color) 0.2em solid;
 		border-radius: var(--full-rounding);
 		margin: 1em auto;
 		font-size: 1.2rem;
@@ -99,6 +110,15 @@
 		display: flex;
 		justify-content: center;
 		gap: 1em;
+	}
+
+	/* Conditional */
+	.player {
+		border: var(--player-color) 0.2em solid;
+	}
+
+	.enemy {
+		border: var(--enemy-color) 0.2em solid;
 	}
 
 	/* Remove arrows from number bos */
