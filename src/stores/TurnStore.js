@@ -10,24 +10,30 @@ const allTurns = derived([players, enemies], ([$players, $enemies], set) => {
 		turns.push({ ...enemy.initiative, type: 'enemy' })
 	);
 
-	console.log(turns);
-
 	turns.sort(sortTurns);
 	turns = turns.map(turn => turn.type);
 
 	set(turns);
 });
 
-const turnsLeft = derived(allTurns, ($allTurns, set) => {
-	set($allTurns);
-});
+export const currentTurnNumber = writable(1);
+
+const turnsLeft = derived(
+	[allTurns, currentTurnNumber],
+	([$allTurns, $currentTurnNumber], set) => {
+		let turnsLeft = [...$allTurns];
+		turnsLeft = turnsLeft.splice($currentTurnNumber - 1);
+
+		set(turnsLeft);
+	}
+);
 
 export const currentTurn = derived(turnsLeft, ($turnsLeft, set) => {
 	set($turnsLeft[0]);
 });
 
 export const upcomingTurns = derived(turnsLeft, ($turnsLeft, set) => {
-	let upcomingTurns = $turnsLeft;
+	let upcomingTurns = [...$turnsLeft];
 	upcomingTurns.shift();
 	set(upcomingTurns);
 });

@@ -1,6 +1,11 @@
 <script>
 	import TurnTracker from './components/TurnTracker.svelte';
 	import Button from './components/Button.svelte';
+	import { currentTurnNumber } from '.././stores/TurnStore.js';
+
+	function endTurn() {
+		currentTurnNumber.update(n => n + 1);
+	}
 </script>
 
 <div class="card c">
@@ -10,7 +15,12 @@
 
 	<div class="divider" />
 
-	<Button on:click big label="End Turn" color="var(--other-action-color)" />
+	<Button
+		on:click={endTurn}
+		big
+		label="End Turn"
+		color="var(--other-action-color)"
+	/>
 </div>
 
 <style>
