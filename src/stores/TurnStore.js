@@ -1,25 +1,38 @@
 import { writable, derived } from 'svelte/store';
 import { players, enemies } from './CharacterStore.js';
 
-export const turns = derived(
-	[players, enemies],
-	([$players, $enemies], set) => {
-		let turns = [];
-		$players.forEach(player =>
-			turns.push({ ...player.initiative, type: 'player' })
-		);
-		$enemies.forEach(enemy =>
-			turns.push({ ...enemy.initiative, type: 'enemy' })
-		);
+const allTurns = derived([players, enemies], ([$players, $enemies], set) => {
+	let turns = [];
+	$players.forEach(player =>
+		turns.push({ ...player.initiative, type: 'player' })
+	);
+	$enemies.forEach(enemy =>
+		turns.push({ ...enemy.initiative, type: 'enemy' })
+	);
 
-		console.log(turns);
+	console.log(turns);
 
-		turns.sort(sortTurns);
-		turns = turns.map(turn => turn.type);
+	turns.sort(sortTurns);
+	turns = turns.map(turn => turn.type);
 
-		set(turns);
-	}
-);
+	set(turns);
+});
+
+const turnsLeft = derived(allTurns, ($allTurns, set) => {
+	set($allTurns);
+});
+
+export const currentTurn = derived(turnsLeft, ($turnsLeft, set) => {
+	set($turnsLeft[0]);
+});
+
+export const upcomingTurns = derived(turnsLeft, ($turnsLeft, set) => {
+	let upcomingTurns = $turnsLeft;
+	upcomingTurns.shift();
+	set(upcomingTurns);
+});
+
+/* Functions */
 
 function sortTurns(b, a) {
 	let count =
