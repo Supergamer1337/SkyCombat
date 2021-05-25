@@ -25,6 +25,8 @@
 	/>
 {/each}
 
+<TurnCard nextRound />
+
 <style>
 	.section-header {
 		font-size: 1.2rem;

@@ -1,15 +1,24 @@
 <script>
 	import TurnTracker from './components/TurnTracker.svelte';
 	import Button from './components/Button.svelte';
-	import { currentTurnNumber } from '.././stores/TurnStore.js';
+	import {
+		currentTurnNumber,
+		currentRound,
+		allTurns
+	} from '.././stores/TurnStore.js';
 
 	function endTurn() {
-		currentTurnNumber.update(n => n + 1);
+		if ($currentTurnNumber >= $allTurns.length) {
+			currentTurnNumber.set(1);
+			currentRound.update(n => n + 1);
+		} else {
+			currentTurnNumber.update(n => n + 1);
+		}
 	}
 </script>
 
 <div class="card c">
-	<p class="card-header">Current Round: 1</p>
+	<p class="card-header">Current Round: {$currentRound}</p>
 
 	<TurnTracker />
 

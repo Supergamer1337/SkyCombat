@@ -1,20 +1,23 @@
 import { writable, derived } from 'svelte/store';
 import { players, enemies } from './CharacterStore.js';
 
-const allTurns = derived([players, enemies], ([$players, $enemies], set) => {
-	let turns = [];
-	$players.forEach(player =>
-		turns.push({ ...player.initiative, type: 'player' })
-	);
-	$enemies.forEach(enemy =>
-		turns.push({ ...enemy.initiative, type: 'enemy' })
-	);
+export const allTurns = derived(
+	[players, enemies],
+	([$players, $enemies], set) => {
+		let turns = [];
+		$players.forEach(player =>
+			turns.push({ ...player.initiative, type: 'player' })
+		);
+		$enemies.forEach(enemy =>
+			turns.push({ ...enemy.initiative, type: 'enemy' })
+		);
 
-	turns.sort(sortTurns);
-	turns = turns.map(turn => turn.type);
+		turns.sort(sortTurns);
+		turns = turns.map(turn => turn.type);
 
-	set(turns);
-});
+		set(turns);
+	}
+);
 
 export const currentTurnNumber = writable(1);
 
@@ -37,6 +40,8 @@ export const upcomingTurns = derived(turnsLeft, ($turnsLeft, set) => {
 	upcomingTurns.shift();
 	set(upcomingTurns);
 });
+
+export const currentRound = writable(1);
 
 /* Functions */
 
