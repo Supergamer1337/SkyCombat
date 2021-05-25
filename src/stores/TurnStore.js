@@ -12,6 +12,8 @@ export const turns = derived(
 			turns.push({ ...enemy.initiative, type: 'enemy' })
 		);
 
+		console.log(turns);
+
 		turns.sort(sortTurns);
 		turns = turns.map(turn => turn.type);
 
@@ -19,11 +21,18 @@ export const turns = derived(
 	}
 );
 
-function sortTurns(a, b) {
-	return a.success - b.success ||
+function sortTurns(b, a) {
+	let count =
+		a.success - b.success ||
 		a.triumph - b.triumph ||
-		a.advantage - b.advantage ||
-		a.type === 'player'
-		? -1
-		: 1;
+		a.advantage - b.advantage;
+
+	if (count === 0) {
+		if (b.type === 'player') {
+			return -1;
+		}
+		return 0;
+	}
+
+	return count;
 }

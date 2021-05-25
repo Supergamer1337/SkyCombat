@@ -1,14 +1,31 @@
 <script>
 	import TurnCard from './TurnCard.svelte';
+	import { turns } from '../../stores/TurnStore.js';
+
+	$: console.log($turns);
 </script>
 
 <p class="section-header">Current Turn</p>
-<TurnCard player boost={1} setback={0} />
+
+{#if $turns.length > 0}
+	<TurnCard
+		player={$turns[0] === 'player'}
+		enemy={$turns[0] === 'enemy'}
+		boost={1}
+		setback={0}
+	/>
+{/if}
 
 <p class="section-header">Upcoming Turns</p>
-<TurnCard enemy boost={0} setback={2} />
-<TurnCard player boost={2} setback={1} />
-<TurnCard nextRound />
+
+{#each $turns as turn}
+	<TurnCard
+		player={turn === 'player'}
+		enemy={turn === 'enemy'}
+		boost={1}
+		setback={0}
+	/>
+{/each}
 
 <style>
 	.section-header {
