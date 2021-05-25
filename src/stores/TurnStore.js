@@ -1,5 +1,6 @@
 import { writable, derived } from 'svelte/store';
 import { players, enemies } from './CharacterStore.js';
+import { nextPlayerBoosts, nextEnemyBoosts } from './BoostStore';
 
 export const allTurns = derived(
 	[players, enemies],
@@ -13,7 +14,9 @@ export const allTurns = derived(
 		);
 
 		turns.sort(sortTurns);
-		turns = turns.map(turn => turn.type);
+		turns = turns.map(turn => {
+			return { type: turn.type, boosts: 0 };
+		});
 
 		set(turns);
 	}
@@ -35,11 +38,35 @@ export const currentTurn = derived(turnsLeft, ($turnsLeft, set) => {
 	set($turnsLeft[0]);
 });
 
-export const upcomingTurns = derived(turnsLeft, ($turnsLeft, set) => {
-	let upcomingTurns = [...$turnsLeft];
-	upcomingTurns.shift();
-	set(upcomingTurns);
-});
+export const upcomingTurns = derived(
+	[turnsLeft, nextPlayerBoosts, nextEnemyBoosts],
+	([$turnsLeft, $nextPlayerBoosts, $nextEnemyBoosts], set) => {
+		let upcomingTurns = [...$turnsLeft];
+		upcomingTurns.shift();
+
+		// Add boost amount to next player.
+		let nextPlayer = upcomingTurns.findIndex(
+			item => item.type === 'player'
+		);
+		if (upcomingTurns[nextPlayer]?.type === 'player') {
+			upcomingTurns[nextPlayer] = {
+				...upcomingTurns[nextPlayer],
+				boosts: $nextPlayerBoosts
+			};
+		}
+
+		// Add boost amount to next enemy
+		let nextEnemy = upcomingTurns.findIndex(item => item.type === 'enemy');
+		if (upcomingTurns[nextEnemy]?.type === 'enemy') {
+			upcomingTurns[nextEnemy] = {
+				...upcomingTurns[nextEnemy],
+				boosts: $nextEnemyBoosts
+			};
+		}
+
+		set(upcomingTurns);
+	}
+);
 
 export const currentRound = writable(1);
 

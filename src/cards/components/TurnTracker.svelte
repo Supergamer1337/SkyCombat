@@ -7,8 +7,8 @@
 
 {#if $currentTurn}
 	<TurnCard
-		player={$currentTurn === 'player'}
-		enemy={$currentTurn === 'enemy'}
+		player={$currentTurn.type === 'player'}
+		enemy={$currentTurn.type === 'enemy'}
 		boost={1}
 		setback={0}
 	/>
@@ -18,9 +18,9 @@
 
 {#each $upcomingTurns as turn}
 	<TurnCard
-		player={turn === 'player'}
-		enemy={turn === 'enemy'}
-		boost={1}
+		player={turn.type === 'player'}
+		enemy={turn.type === 'enemy'}
+		boost={turn.boosts}
 		setback={0}
 	/>
 {/each}

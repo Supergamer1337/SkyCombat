@@ -1,9 +1,24 @@
 <script>
 	import Button from './components/Button.svelte';
-	import { playerBoosts, enemyBoosts } from '../stores/BoostStore.js';
+	import {
+		playerBoosts,
+		enemyBoosts,
+		nextPlayerBoosts,
+		nextEnemyBoosts
+	} from '../stores/BoostStore.js';
+	import { currentTurn } from './../stores/TurnStore';
 
 	function addToBoostStore() {
 		playerBoosts.update(n => n + 1);
+	}
+
+	function addNextBoost() {
+		if ($currentTurn.type === 'player') {
+			nextPlayerBoosts.update(n => n + 1);
+		}
+		if ($currentTurn.type === 'enemy') {
+			nextEnemyBoosts.update(n => n + 1);
+		}
 	}
 </script>
 
@@ -11,7 +26,11 @@
 	<p class="title">Next Ally/Enemy</p>
 
 	<div class="button-container">
-		<Button color="var(--boost-color)" label="+Boost" />
+		<Button
+			on:click={addNextBoost}
+			color="var(--boost-color)"
+			label="+Boost"
+		/>
 		<Button color="var(--setback-color)" label="+Setback" />
 	</div>
 
