@@ -4,15 +4,32 @@
 	import {
 		currentTurnNumber,
 		currentRound,
-		allTurns
-	} from '.././stores/TurnStore.js';
+		allTurns,
+		currentTurn
+	} from '../stores/TurnStore.js';
+	import {
+		nextPlayerBoosts,
+		nextEnemyBoosts,
+		currentTurnBoosts
+	} from '../stores/BoostStore.js';
 
 	function endTurn() {
+		// Increase turn number, and change round on final.
 		if ($currentTurnNumber >= $allTurns.length) {
 			currentTurnNumber.set(1);
 			currentRound.update(n => n + 1);
 		} else {
 			currentTurnNumber.update(n => n + 1);
+		}
+
+		// Change boosts to correct value.
+		if ($currentTurn.type === 'player') {
+			currentTurnBoosts.set($nextPlayerBoosts);
+			nextPlayerBoosts.set(0);
+		}
+		if ($currentTurn.type === 'enemy') {
+			currentTurnBoosts.set($nextEnemyBoosts);
+			nextEnemyBoosts.set(0);
 		}
 	}
 </script>

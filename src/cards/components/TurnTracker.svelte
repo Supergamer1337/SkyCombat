@@ -1,6 +1,7 @@
 <script>
 	import TurnCard from './TurnCard.svelte';
 	import { currentTurn, upcomingTurns } from '../../stores/TurnStore.js';
+	import { currentTurnBoosts } from '../../stores/BoostStore';
 </script>
 
 <p class="section-header">Current Turn</p>
@@ -9,7 +10,7 @@
 	<TurnCard
 		player={$currentTurn.type === 'player'}
 		enemy={$currentTurn.type === 'enemy'}
-		boost={1}
+		boost={$currentTurnBoosts}
 		setback={0}
 	/>
 {/if}

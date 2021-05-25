@@ -37,8 +37,7 @@
 		transition: width 250ms ease-out;
 	}
 
-	button:hover::before,
-	button:focus::before {
+	button:hover::before {
 		width: 125%;
 	}
 
