@@ -6,7 +6,12 @@
 	import BoostIcon from './BoostIcon.svelte';
 	import SetbackIcon from './SetbackIcon.svelte';
 	import { players, enemies } from '../../stores/CharacterStore.js';
-	import { currentTurn } from '../../stores/TurnStore.js';
+	import {
+		currentTurn,
+		allTurns,
+		currentTurnNumber,
+		currentRound
+	} from '../../stores/TurnStore.js';
 	import { currentlyActive } from '../../stores/BoostStore.js';
 
 	export let id = undefined;
@@ -115,7 +120,13 @@
 			players.update(playerArray => {
 				let newPlayerArray = playerArray;
 				newPlayerArray[id].wound -= 1;
-				if (newPlayerArray[id].wound < 0) newPlayerArray.splice(id, 1);
+				if (newPlayerArray[id].wound < 0) {
+					newPlayerArray.splice(id, 1);
+					if ($currentTurnNumber === $allTurns.length) {
+						currentTurnNumber.set(1);
+						currentRound.update(n => n + 1);
+					}
+				}
 				return [...newPlayerArray];
 			});
 		}
@@ -123,7 +134,13 @@
 			enemies.update(enemyArray => {
 				let newEnemyArray = enemyArray;
 				newEnemyArray[id].wound -= 1;
-				if (newEnemyArray[id].wound < 0) newEnemyArray.splice(id, 1);
+				if (newEnemyArray[id].wound < 0) {
+					newEnemyArray.splice(id, 1);
+					if ($currentTurnNumber === $allTurns.length) {
+						currentTurnNumber.set(1);
+						currentRound.update(n => n + 1);
+					}
+				}
 				return [...newEnemyArray];
 			});
 		}
