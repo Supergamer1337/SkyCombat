@@ -8,7 +8,17 @@
 	} from '../stores/BoostStore.js';
 	import { currentTurn } from './../stores/TurnStore';
 
-	function addToBoostStore() {
+	function addToBoostStore(e) {
+		if (e.ctrlKey) {
+			if ($currentTurn.type === 'player') {
+				playerBoosts.update(n => n - 1);
+			}
+			if ($currentTurn.type === 'enemy') {
+				enemyBoosts.update(n => n - 1);
+			}
+			return;
+		}
+
 		if ($currentTurn.type === 'player') {
 			playerBoosts.update(n => n + 1);
 		}
@@ -17,21 +27,22 @@
 		}
 	}
 
-	function addNextBoost() {
+	function addNextBoost(e) {
+		if (e.ctrlKey) {
+			if ($currentTurn.type === 'player') {
+				nextPlayerBoosts.update(n => n - 1);
+			}
+			if ($currentTurn.type === 'enemy') {
+				nextEnemyBoosts.update(n => n - 1);
+			}
+			return;
+		}
+
 		if ($currentTurn.type === 'player') {
 			nextPlayerBoosts.update(n => n + 1);
 		}
 		if ($currentTurn.type === 'enemy') {
 			nextEnemyBoosts.update(n => n + 1);
-		}
-	}
-
-	function removeFromBoostStore() {
-		if ($currentTurn.type === 'player') {
-			playerBoosts.update(n => n - 1);
-		}
-		if ($currentTurn.type === 'enemy') {
-			enemyBoosts.update(n => n - 1);
 		}
 	}
 </script>
@@ -43,9 +54,9 @@
 		<Button
 			on:click={addNextBoost}
 			color="var(--boost-color)"
-			label="+Boost"
+			label="Boost"
 		/>
-		<Button color="var(--setback-color)" label="+Setback" />
+		<Button color="var(--setback-color)" label="Setback" />
 	</div>
 
 	<p class="title" style="margin-top: 1em;">Anyone's Turn</p>
@@ -53,12 +64,7 @@
 		<Button
 			on:click={addToBoostStore}
 			color="var(--boost-color)"
-			label="+Boost"
-		/>
-		<Button
-			on:click={removeFromBoostStore}
-			color="var(--boost-color)"
-			label="-Boost"
+			label="Boost"
 		/>
 	</div>
 </div>
