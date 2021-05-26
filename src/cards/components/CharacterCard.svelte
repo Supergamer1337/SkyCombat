@@ -7,6 +7,7 @@
 	import SetbackIcon from './SetbackIcon.svelte';
 	import { players, enemies } from '../../stores/CharacterStore.js';
 	import { currentTurn } from '../../stores/TurnStore.js';
+	import { currentlyActive } from '../../stores/BoostStore.js';
 
 	export let id = undefined;
 	export let name = '';
@@ -144,7 +145,7 @@
 	}
 
 	function makeActive() {
-		//currentlyActive.set({ boosts: boostDice, setbacks: setbackDice });
+		$currentlyActive.set({ boosts: boostDice, setbacks: setbackDice });
 	}
 </script>
 

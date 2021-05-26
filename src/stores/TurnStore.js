@@ -4,7 +4,10 @@ import {
 	nextPlayerBoosts,
 	nextEnemyBoosts,
 	nextPlayerSetbacks,
-	nextEnemySetbacks
+	nextEnemySetbacks,
+	currentTurnBoosts,
+	currentTurnSetbacks,
+	currentlyActive
 } from './BoostStore';
 
 export const allTurns = derived(
@@ -87,6 +90,15 @@ export const upcomingTurns = derived(
 		}
 
 		set(upcomingTurns);
+	}
+);
+
+export const currentTurnDice = derived(
+	[currentTurnBoosts, currentTurnSetbacks, currentlyActive],
+	([$currentTurnBoosts, $currentTurnSetbacks, $currentlyActive], set) => {
+		let boosts = $currentTurnBoosts + $currentlyActive.boosts;
+		let setbacks = $currentTurnSetbacks + $currentlyActive.setbacks;
+		set({ boosts, setbacks });
 	}
 );
 
