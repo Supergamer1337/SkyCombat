@@ -31,7 +31,33 @@
 				'a b c'
 				'a d c';
 
-			grid-template-columns: 1fr 1fr 1fr;
+			grid-template-columns: 1fr auto 1fr;
+		}
+	}
+
+	@media only screen and (max-width: 1330px) {
+		.container {
+			grid-template-areas:
+				'b c'
+				'd c'
+				'a a';
+
+			grid-template-columns: 1fr 1fr;
+			grid-template-rows: auto auto auto;
+		}
+	}
+
+	@media only screen and (max-width: 920px) {
+		.container {
+			grid-template-areas:
+				'c'
+				'c'
+				'b'
+				'd'
+				'a';
+
+			grid-template-columns: 1fr;
+			grid-template-rows: auto auto auto auto auto auto;
 		}
 	}
 
