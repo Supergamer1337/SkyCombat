@@ -9,7 +9,12 @@
 	import { currentTurn } from './../stores/TurnStore';
 
 	function addToBoostStore() {
-		playerBoosts.update(n => n + 1);
+		if ($currentTurn.type === 'player') {
+			playerBoosts.update(n => n + 1);
+		}
+		if ($currentTurn.type === 'enemy') {
+			enemyBoosts.update(n => n + 1);
+		}
 	}
 
 	function addNextBoost() {
@@ -18,6 +23,15 @@
 		}
 		if ($currentTurn.type === 'enemy') {
 			nextEnemyBoosts.update(n => n + 1);
+		}
+	}
+
+	function removeFromBoostStore() {
+		if ($currentTurn.type === 'player') {
+			playerBoosts.update(n => n - 1);
+		}
+		if ($currentTurn.type === 'enemy') {
+			enemyBoosts.update(n => n - 1);
 		}
 	}
 </script>
@@ -40,6 +54,11 @@
 			on:click={addToBoostStore}
 			color="var(--boost-color)"
 			label="+Boost"
+		/>
+		<Button
+			on:click={removeFromBoostStore}
+			color="var(--boost-color)"
+			label="-Boost"
 		/>
 	</div>
 </div>
