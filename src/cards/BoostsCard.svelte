@@ -36,5 +36,7 @@
 		flex-wrap: wrap;
 		gap: 0.5em;
 		margin-top: 0.5em;
+		height: 4.9em;
+		overflow-y: auto;
 	}
 </style>

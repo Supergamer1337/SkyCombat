@@ -47,5 +47,6 @@
 
 	.current-turn {
 		height: 4rem;
+		margin-top: 0.5em;
 	}
 </style>
