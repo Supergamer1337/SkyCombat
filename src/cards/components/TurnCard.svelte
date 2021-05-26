@@ -29,7 +29,8 @@
 
 <style>
 	.card {
-		padding: 1em 0.5em;
+		padding: 0 0.5em;
+		height: 4rem;
 		border-radius: var(--primary-rounding);
 		margin-top: 0.5em;
 		display: flex;
