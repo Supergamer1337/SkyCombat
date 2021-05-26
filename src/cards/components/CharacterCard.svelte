@@ -126,8 +126,7 @@
 				if (newPlayerArray[id].wound < 0) {
 					newPlayerArray.splice(id, 1);
 					if ($currentTurnNumber === $allTurns.length) {
-						currentTurnNumber.set(1);
-						currentRound.update(n => n + 1);
+						startNextRound();
 					}
 				}
 				return [...newPlayerArray];
@@ -180,9 +179,13 @@
 	function removeEnemy(newEnemyArray) {
 		newEnemyArray.splice(id, 1);
 		if ($currentTurnNumber === $allTurns.length) {
-			currentTurnNumber.set(1);
-			currentRound.update(n => n + 1);
+			startNextRound();
 		}
+	}
+
+	function startNextRound() {
+		currentTurnNumber.set(1);
+		currentRound.update(n => n + 1);
 	}
 </script>
 
