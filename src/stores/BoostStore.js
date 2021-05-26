@@ -13,3 +13,5 @@ export const currentTurnBoosts = writable(0);
 export const nextPlayerSetbacks = writable(0);
 
 export const nextEnemySetbacks = writable(0);
+
+export const currentTurnSetbacks = writable(0);

@@ -10,7 +10,10 @@
 	import {
 		nextPlayerBoosts,
 		nextEnemyBoosts,
-		currentTurnBoosts
+		nextPlayerSetbacks,
+		nextEnemySetbacks,
+		currentTurnBoosts,
+		currentTurnSetbacks
 	} from '../stores/BoostStore.js';
 
 	function endTurn() {
@@ -25,11 +28,15 @@
 		// Change boosts to correct value.
 		if ($currentTurn.type === 'player') {
 			currentTurnBoosts.set($nextPlayerBoosts);
+			currentTurnSetbacks.set($nextPlayerSetbacks);
 			nextPlayerBoosts.set(0);
+			nextEnemySetbacks.set(0);
 		}
 		if ($currentTurn.type === 'enemy') {
 			currentTurnBoosts.set($nextEnemyBoosts);
+			currentTurnBoosts.set($nextEnemySetbacks);
 			nextEnemyBoosts.set(0);
+			nextEnemySetbacks.set(0);
 		}
 	}
 </script>
