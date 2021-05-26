@@ -145,11 +145,20 @@
 	}
 
 	function makeActive() {
-		currentlyActive.set({
-			boosts: boostDice,
-			setbacks: setbackDice,
-			id: id
-		});
+		if (
+			(player && $currentTurn.type === 'player') ||
+			(enemy && $currentTurn.type === 'enemy')
+		) {
+			if ($currentlyActive.id === id) {
+				currentlyActive.set({ boosts: 0, setbacks: 0, id: undefined });
+				return;
+			}
+			currentlyActive.set({
+				boosts: boostDice,
+				setbacks: setbackDice,
+				id: id
+			});
+		}
 	}
 </script>
 
@@ -175,7 +184,11 @@
 			{activeDisable}
 			small
 			color="var(--other-action-color)"
-			label="Ativate"
+			label={((player && $currentTurn.type === 'player') ||
+				(enemy && $currentTurn.type === 'enemy')) &&
+			$currentlyActive.id === id
+				? 'Active'
+				: 'Activate'}
 		/>
 		<Button
 			on:click={addSetback}
