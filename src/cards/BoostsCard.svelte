@@ -1,8 +1,6 @@
 <script>
 	import BoostIcon from './components/BoostIcon.svelte';
 	import { playerBoosts, enemyBoosts } from '../stores/BoostStore.js';
-
-	$: console.log($playerBoosts);
 </script>
 
 <div class="card d">
