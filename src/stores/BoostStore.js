@@ -15,4 +15,8 @@ export const currentTurnSetbacks = writable(0);
 
 export const currentTurnBoosts = writable(0);
 
-export const currentlyActive = writable({ boosts: 0, setbacks: 0 });
+export const currentlyActive = writable({
+	boosts: 0,
+	setbacks: 0,
+	id: undefined
+});

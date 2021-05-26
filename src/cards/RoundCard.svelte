@@ -13,10 +13,39 @@
 		nextPlayerSetbacks,
 		nextEnemySetbacks,
 		currentTurnBoosts,
-		currentTurnSetbacks
+		currentTurnSetbacks,
+		currentlyActive
 	} from '../stores/BoostStore.js';
+	import { players, enemies } from '../stores/CharacterStore.js';
 
 	function endTurn() {
+		// Removes current dice from currently active player.
+		if ($currentTurn.type === 'player') {
+			players.update(players =>
+				players.map((player, index) => {
+					if (index === $currentlyActive.id) {
+						return (player = { ...player, boost: 0, setback: 0 });
+					}
+					return player;
+				})
+			);
+		}
+
+		// Removes current dice from currently active enemy.
+		if ($currentTurn.type === 'enemy') {
+			enemies.update(enemies =>
+				enemies.map((enemy, index) => {
+					if (index === $currentlyActive.id) {
+						return (enemy = { ...enemy, boost: 0, setback: 0 });
+					}
+					return enemy;
+				})
+			);
+		}
+
+		// Resets currentlyActive.
+		currentlyActive.set({ boosts: 0, setbacks: 0, id: undefined });
+
 		// Increase turn number, and change round on final.
 		if ($currentTurnNumber >= $allTurns.length) {
 			currentTurnNumber.set(1);

@@ -145,7 +145,11 @@
 	}
 
 	function makeActive() {
-		$currentlyActive.set({ boosts: boostDice, setbacks: setbackDice });
+		currentlyActive.set({
+			boosts: boostDice,
+			setbacks: setbackDice,
+			id: id
+		});
 	}
 </script>
 
