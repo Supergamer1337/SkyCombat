@@ -6,6 +6,7 @@
 	import BoostIcon from './BoostIcon.svelte';
 	import SetbackIcon from './SetbackIcon.svelte';
 	import { players, enemies } from '../../stores/CharacterStore.js';
+	import { currentTurn } from '../../stores/TurnStore.js';
 
 	export let id = undefined;
 	export let name = '';
@@ -16,6 +17,10 @@
 
 	export let player = false;
 	export let enemy = false;
+
+	let activeDisable = false;
+
+	$: disableActive($currentTurn);
 
 	function addBoost(e) {
 		if (e.ctrlKey) {
@@ -122,6 +127,21 @@
 			});
 		}
 	}
+
+	function disableActive(currentTurn) {
+		if (currentTurn.type === 'player' && enemy) {
+			activeDisable = true;
+		}
+		if (currentTurn.type === 'player' && player) {
+			activeDisable = false;
+		}
+		if (currentTurn.type === 'enemy' && player) {
+			activeDisable = true;
+		}
+		if (currentTurn.type === 'enemy' && enemy) {
+			activeDisable = false;
+		}
+	}
 </script>
 
 <div class:player class:enemy class="card">
@@ -141,7 +161,12 @@
 	</div>
 
 	<div class="row-container">
-		<Button small color="var(--other-action-color)" label="Ativate" />
+		<Button
+			{activeDisable}
+			small
+			color="var(--other-action-color)"
+			label="Ativate"
+		/>
 		<Button
 			on:click={addSetback}
 			small

@@ -5,9 +5,17 @@
 	export let label = '';
 	export let color = '';
 	export let type = 'button';
+	export let activeDisable = false;
 </script>
 
-<button {type} on:click class:small class:big style="background-color: {color}">
+<button
+	{type}
+	class:activeDisable
+	on:click
+	class:small
+	class:big
+	style="background-color: {color}"
+>
 	{label}
 </button>
 
@@ -51,5 +59,18 @@
 	.small {
 		width: 5.5em;
 		height: 3em;
+	}
+
+	.activeDisable {
+		opacity: 0.6;
+		cursor: default;
+	}
+
+	.activeDisable:focus {
+		outline: none;
+	}
+
+	.activeDisable:hover::before {
+		width: 0;
 	}
 </style>
