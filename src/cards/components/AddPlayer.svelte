@@ -2,6 +2,7 @@
 	import Button from './Button.svelte';
 	import { players, enemies } from './../../stores/CharacterStore.js';
 	import { onMount } from 'svelte';
+	import { slide } from 'svelte/transition';
 
 	export let closeMenu = undefined;
 	export let enemy = false;
@@ -12,11 +13,18 @@
 	let success = 0;
 	let triumph = 0;
 	let advantage = 0;
+	let error = '';
 
 	let nameInput = undefined;
 
 	function addPlayer(e) {
 		e.preventDefault();
+
+		if (!checkEverythingExists()) {
+			error = 'One or more fields are empty!';
+			return;
+		}
+
 		if (player) {
 			players.update(playerArray => [
 				...playerArray,
@@ -52,6 +60,19 @@
 			]);
 		}
 		closeMenu();
+	}
+
+	function checkEverythingExists() {
+		if (
+			!name ||
+			!woundThreshold ||
+			success === '' ||
+			triumph === '' ||
+			advantage === ''
+		) {
+			return false;
+		}
+		return true;
 	}
 
 	onMount(() => {
@@ -126,9 +147,18 @@
 			color="var(--other-action-color)"
 		/>
 	</div>
+
+	{#if error}
+		<p transition:slide={{ duration: 350 }} class="error">
+			{error}
+		</p>
+	{/if}
 </form>
 
 <style>
+	form {
+		position: relative;
+	}
 	.title {
 		font-size: 1.4rem;
 		font-weight: 600;
@@ -193,6 +223,16 @@
 		display: flex;
 		justify-content: center;
 		gap: 1em;
+	}
+
+	.error {
+		background-color: var(--error-color);
+		text-align: center;
+		font-size: 1.2rem;
+		font-weight: bold;
+		margin-top: 1em;
+		padding: 1em;
+		width: 100%;
 	}
 
 	/* Conditional */
