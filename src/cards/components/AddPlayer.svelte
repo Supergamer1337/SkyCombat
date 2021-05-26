@@ -63,13 +63,7 @@
 	}
 
 	function checkEverythingExists() {
-		if (
-			!name ||
-			!woundThreshold ||
-			success === '' ||
-			triumph === '' ||
-			advantage === ''
-		) {
+		if (!name || !woundThreshold) {
 			return false;
 		}
 		return true;
