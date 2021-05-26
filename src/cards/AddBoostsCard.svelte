@@ -4,7 +4,9 @@
 		playerBoosts,
 		enemyBoosts,
 		nextPlayerBoosts,
-		nextEnemyBoosts
+		nextEnemyBoosts,
+		nextPlayerSetbacks,
+		nextEnemySetbacks
 	} from '../stores/BoostStore.js';
 	import { currentTurn } from './../stores/TurnStore';
 
@@ -45,10 +47,29 @@
 			nextEnemyBoosts.update(n => n + 1);
 		}
 	}
+
+	function addNextSetback(e) {
+		if (e.ctrlKey) {
+			if ($currentTurn.type === 'player') {
+				nextPlayerSetbacks.update(n => n - 1);
+			}
+			if ($currentTurn.type === 'enemy') {
+				nextEnemySetbacks.update(n => n - 1);
+			}
+			return;
+		}
+
+		if ($currentTurn.type === 'player') {
+			nextPlayerSetbacks.update(n => n + 1);
+		}
+		if ($currentTurn.type === 'enemy') {
+			nextEnemySetbacks.update(n => n + 1);
+		}
+	}
 </script>
 
 <div class="card b">
-	<p class="title">Next Ally/Enemy</p>
+	<p class="title">Next Ally</p>
 
 	<div class="button-container">
 		<Button
@@ -56,7 +77,11 @@
 			color="var(--boost-color)"
 			label="Boost"
 		/>
-		<Button color="var(--setback-color)" label="Setback" />
+		<Button
+			on:click={addNextSetback}
+			color="var(--setback-color)"
+			label="Setback"
+		/>
 	</div>
 
 	<p class="title" style="margin-top: 1em;">Anyone's Turn</p>

@@ -1,6 +1,11 @@
 import { writable, derived } from 'svelte/store';
 import { players, enemies } from './CharacterStore.js';
-import { nextPlayerBoosts, nextEnemyBoosts } from './BoostStore';
+import {
+	nextPlayerBoosts,
+	nextEnemyBoosts,
+	nextPlayerSetbacks,
+	nextEnemySetbacks
+} from './BoostStore';
 
 export const allTurns = derived(
 	[players, enemies],
@@ -15,7 +20,7 @@ export const allTurns = derived(
 
 		turns.sort(sortTurns);
 		turns = turns.map(turn => {
-			return { type: turn.type, boosts: 0 };
+			return { type: turn.type, boosts: 0, setbacks: 0 };
 		});
 
 		set(turns);
@@ -28,7 +33,7 @@ const turnsLeft = derived(
 	[allTurns, currentTurnNumber],
 	([$allTurns, $currentTurnNumber], set) => {
 		let turnsLeft = [...$allTurns];
-		turnsLeft = turnsLeft.splice($currentTurnNumber - 1);
+		turnsLeft = turnsLeft.splice($currentTurnNumber - 1); // -1 to as turn number start at 1, and index at 0.
 
 		set(turnsLeft);
 	}
@@ -39,8 +44,23 @@ export const currentTurn = derived(turnsLeft, ($turnsLeft, set) => {
 });
 
 export const upcomingTurns = derived(
-	[turnsLeft, nextPlayerBoosts, nextEnemyBoosts],
-	([$turnsLeft, $nextPlayerBoosts, $nextEnemyBoosts], set) => {
+	[
+		turnsLeft,
+		nextPlayerBoosts,
+		nextEnemyBoosts,
+		nextPlayerSetbacks,
+		nextEnemySetbacks
+	],
+	(
+		[
+			$turnsLeft,
+			$nextPlayerBoosts,
+			$nextEnemyBoosts,
+			$nextPlayerSetbacks,
+			$nextEnemySetbacks
+		],
+		set
+	) => {
 		let upcomingTurns = [...$turnsLeft];
 		upcomingTurns.shift();
 
@@ -51,7 +71,8 @@ export const upcomingTurns = derived(
 		if (upcomingTurns[nextPlayer]?.type === 'player') {
 			upcomingTurns[nextPlayer] = {
 				...upcomingTurns[nextPlayer],
-				boosts: $nextPlayerBoosts
+				boosts: $nextPlayerBoosts,
+				setbacks: $nextPlayerSetbacks
 			};
 		}
 
@@ -60,7 +81,8 @@ export const upcomingTurns = derived(
 		if (upcomingTurns[nextEnemy]?.type === 'enemy') {
 			upcomingTurns[nextEnemy] = {
 				...upcomingTurns[nextEnemy],
-				boosts: $nextEnemyBoosts
+				boosts: $nextEnemyBoosts,
+				setbacks: $nextEnemySetbacks
 			};
 		}
 

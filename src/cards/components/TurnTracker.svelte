@@ -11,7 +11,7 @@
 		player={$currentTurn.type === 'player'}
 		enemy={$currentTurn.type === 'enemy'}
 		boost={$currentTurnBoosts}
-		setback={0}
+		setback={$currentTurn.setbacks}
 	/>
 {/if}
 
@@ -22,7 +22,7 @@
 		player={turn.type === 'player'}
 		enemy={turn.type === 'enemy'}
 		boost={turn.boosts}
-		setback={0}
+		setback={turn.setbacks}
 	/>
 {/each}
 
