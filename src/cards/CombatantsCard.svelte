@@ -26,7 +26,7 @@
 	</div>
 
 	<div class="char-container">
-		{#each $players as player, id}
+		{#each $players as player, id (id)}
 			<CharacterCard
 				player
 				{id}

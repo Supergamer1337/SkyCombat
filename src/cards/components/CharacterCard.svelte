@@ -17,7 +17,25 @@
 	export let player = false;
 	export let enemy = false;
 
-	function addBoost() {
+	function addBoost(e) {
+		if (e.ctrlKey) {
+			if (player) {
+				players.update(playerArray => {
+					let newPlayerArray = playerArray;
+					newPlayerArray[id].boost -= 1;
+					return [...newPlayerArray];
+				});
+			}
+			if (enemy) {
+				enemies.update(enemyArray => {
+					let newEnemyArray = enemyArray;
+					newEnemyArray[id].boost -= 1;
+					return [...newEnemyArray];
+				});
+			}
+			return;
+		}
+
 		if (player) {
 			players.update(playerArray => {
 				let newPlayerArray = playerArray;
@@ -34,7 +52,25 @@
 		}
 	}
 
-	function addSetback() {
+	function addSetback(e) {
+		if (e.ctrlKey) {
+			if (player) {
+				players.update(playerArray => {
+					let newPlayerArray = playerArray;
+					newPlayerArray[id].setback -= 1;
+					return [...newPlayerArray];
+				});
+			}
+			if (enemy) {
+				enemies.update(enemyArray => {
+					let newEnemyArray = enemyArray;
+					newEnemyArray[id].setback -= 1;
+					return [...newEnemyArray];
+				});
+			}
+			return;
+		}
+
 		if (player) {
 			players.update(playerArray => {
 				let newPlayerArray = playerArray;

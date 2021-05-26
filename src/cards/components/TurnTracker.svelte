@@ -17,7 +17,7 @@
 
 <p class="section-header">Upcoming Turns</p>
 
-{#each $upcomingTurns as turn}
+{#each $upcomingTurns as turn, id (id)}
 	<TurnCard
 		player={turn.type === 'player'}
 		enemy={turn.type === 'enemy'}
