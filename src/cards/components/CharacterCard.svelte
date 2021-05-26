@@ -110,6 +110,9 @@
 			enemies.update(enemyArray => {
 				let newEnemyArray = enemyArray;
 				newEnemyArray[id].wound += 1;
+				if (newEnemyArray[id].wound >= woundThreshold) {
+					removeEnemy(newEnemyArray);
+				}
 				return [...newEnemyArray];
 			});
 		}
@@ -135,11 +138,7 @@
 				let newEnemyArray = enemyArray;
 				newEnemyArray[id].wound -= 1;
 				if (newEnemyArray[id].wound < 0) {
-					newEnemyArray.splice(id, 1);
-					if ($currentTurnNumber === $allTurns.length) {
-						currentTurnNumber.set(1);
-						currentRound.update(n => n + 1);
-					}
+					removeEnemy(newEnemyArray);
 				}
 				return [...newEnemyArray];
 			});
@@ -175,6 +174,14 @@
 				setbacks: setbackDice,
 				id: id
 			});
+		}
+	}
+
+	function removeEnemy(newEnemyArray) {
+		newEnemyArray.splice(id, 1);
+		if ($currentTurnNumber === $allTurns.length) {
+			currentTurnNumber.set(1);
+			currentRound.update(n => n + 1);
 		}
 	}
 </script>
