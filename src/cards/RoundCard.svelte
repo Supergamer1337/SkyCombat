@@ -30,11 +30,11 @@
 			currentTurnBoosts.set($nextPlayerBoosts);
 			currentTurnSetbacks.set($nextPlayerSetbacks);
 			nextPlayerBoosts.set(0);
-			nextEnemySetbacks.set(0);
+			nextPlayerSetbacks.set(0);
 		}
 		if ($currentTurn.type === 'enemy') {
 			currentTurnBoosts.set($nextEnemyBoosts);
-			currentTurnBoosts.set($nextEnemySetbacks);
+			currentTurnSetbacks.set($nextEnemySetbacks);
 			nextEnemyBoosts.set(0);
 			nextEnemySetbacks.set(0);
 		}

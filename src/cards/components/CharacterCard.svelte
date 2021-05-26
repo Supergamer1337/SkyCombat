@@ -142,6 +142,10 @@
 			activeDisable = false;
 		}
 	}
+
+	function makeActive() {
+		//currentlyActive.set({ boosts: boostDice, setbacks: setbackDice });
+	}
 </script>
 
 <div class:player class:enemy class="card">
@@ -162,6 +166,7 @@
 
 	<div class="row-container">
 		<Button
+			on:click={makeActive}
 			{activeDisable}
 			small
 			color="var(--other-action-color)"
