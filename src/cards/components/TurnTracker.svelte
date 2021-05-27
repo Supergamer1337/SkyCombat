@@ -21,7 +21,7 @@
 
 <p class="section-header">Upcoming Turns</p>
 <div class="upcoming-turns-list">
-	{#each $upcomingTurns as turn, id (id)}
+	{#each $upcomingTurns as turn, id (turn.uid)}
 		<TurnCard
 			player={turn.type === 'player'}
 			enemy={turn.type === 'enemy'}
@@ -41,12 +41,14 @@
 	}
 
 	.upcoming-turns-list {
-		height: 20rem;
+		height: 19rem;
 		overflow-y: auto;
+		overflow-x: hidden;
 	}
 
 	.current-turn {
-		height: 4rem;
+		height: 5rem;
 		margin-top: 0.5em;
+		overflow-x: hidden;
 	}
 </style>

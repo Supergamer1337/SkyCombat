@@ -1,6 +1,6 @@
 <script>
 	import Button from './Button.svelte';
-	import { players, enemies } from './../../stores/CharacterStore.js';
+	import { players, enemies, uid } from './../../stores/CharacterStore.js';
 	import { onMount } from 'svelte';
 	import { slide } from 'svelte/transition';
 
@@ -25,6 +25,8 @@
 			return;
 		}
 
+		uid.update(n => n + 1);
+
 		if (player) {
 			players.update(playerArray => [
 				...playerArray,
@@ -38,7 +40,8 @@
 						success,
 						triumph,
 						advantage
-					}
+					},
+					uid: $uid
 				}
 			]);
 		}
@@ -55,7 +58,8 @@
 						success,
 						triumph,
 						advantage
-					}
+					},
+					uid: $uid
 				}
 			]);
 		}

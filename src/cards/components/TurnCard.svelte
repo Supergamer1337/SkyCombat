@@ -1,6 +1,7 @@
 <script>
 	import BoostIcon from './BoostIcon.svelte';
 	import SetbackIcon from './SetbackIcon.svelte';
+	import { fly } from 'svelte/transition';
 
 	export let player = false;
 	export let enemy = false;
@@ -13,7 +14,13 @@
 {#if nextRound}
 	<div class="card next-round"><p>Next Round</p></div>
 {:else}
-	<div class:player class:enemy class="card">
+	<div
+		in:fly={{ x: -200, duration: 500 }}
+		out:fly={{ x: 200, duration: 500 }}
+		class:player
+		class:enemy
+		class="card"
+	>
 		<p class="name">{player ? 'Player' : 'Enemy'}</p>
 		<div class="extra-dice">
 			{#if boost}

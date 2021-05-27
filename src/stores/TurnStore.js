@@ -15,15 +15,19 @@ export const allTurns = derived(
 	([$players, $enemies], set) => {
 		let turns = [];
 		$players.forEach(player =>
-			turns.push({ ...player.initiative, type: 'player' })
+			turns.push({
+				...player.initiative,
+				type: 'player',
+				uid: player.uid
+			})
 		);
 		$enemies.forEach(enemy =>
-			turns.push({ ...enemy.initiative, type: 'enemy' })
+			turns.push({ ...enemy.initiative, type: 'enemy', uid: enemy.uid })
 		);
 
 		turns.sort(sortTurns);
 		turns = turns.map(turn => {
-			return { type: turn.type, boosts: 0, setbacks: 0 };
+			return { type: turn.type, boosts: 0, setbacks: 0, uid: turn.uid };
 		});
 
 		set(turns);
