@@ -31,7 +31,7 @@
 				'a b c'
 				'a d c';
 
-			grid-template-columns: 1fr auto 1fr;
+			grid-template-columns: 1.5fr 25rem 1fr;
 		}
 	}
 
