@@ -41,7 +41,7 @@
 	}
 
 	.upcoming-turns-list {
-		height: 16rem;
+		height: 20rem;
 		overflow-y: auto;
 	}
 

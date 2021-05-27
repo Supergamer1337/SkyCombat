@@ -91,6 +91,7 @@
 		color: var(--primary-text);
 		padding: 2em;
 		border-radius: var(--primary-rounding);
+		height: 44.8rem;
 	}
 
 	.card-header {

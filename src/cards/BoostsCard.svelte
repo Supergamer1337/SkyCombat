@@ -24,6 +24,7 @@
 		color: var(--primary-text);
 		padding: 2em;
 		border-radius: var(--primary-rounding);
+		height: 21.4rem;
 	}
 
 	.title {

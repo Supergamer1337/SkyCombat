@@ -18,7 +18,7 @@
 		grid-template-areas:
 			'a a b c'
 			'a a d c';
-		grid-template-rows: 1fr 1fr;
+		grid-template-rows: auto 1fr;
 		grid-template-columns: 1fr 1fr 1fr 1fr;
 		grid-gap: 2em;
 
