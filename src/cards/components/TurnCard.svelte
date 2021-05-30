@@ -15,8 +15,8 @@
 	<div class="card next-round"><p>Next Round</p></div>
 {:else}
 	<div
-		in:fly={{ x: -200, duration: 500 }}
-		out:fly={{ x: 200, duration: 500 }}
+		in:fly={{ x: -300, duration: 500 }}
+		out:fly={{ x: 300, duration: 500 }}
 		class:player
 		class:enemy
 		class="card"

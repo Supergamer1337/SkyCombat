@@ -18,17 +18,33 @@ export const allTurns = derived(
 			turns.push({
 				...player.initiative,
 				type: 'player',
-				uid: player.uid
+				uid: player.uid,
+				incapacitated: player.incapacitated
 			})
 		);
 		$enemies.forEach(enemy =>
-			turns.push({ ...enemy.initiative, type: 'enemy', uid: enemy.uid })
+			turns.push({
+				...enemy.initiative,
+				type: 'enemy',
+				uid: enemy.uid,
+				incapacitated: enemy.incapacitated
+			})
 		);
 
 		turns.sort(sortTurns);
-		turns = turns.map(turn => {
-			return { type: turn.type, boosts: 0, setbacks: 0, uid: turn.uid };
+		turns = turns.filter(turn => {
+			if (!turn.incapacitated) {
+				return {
+					type: turn.type,
+					boosts: 0,
+					setbacks: 0,
+					uid: turn.uid,
+					incapacitated: turn.incapacitated
+				};
+			}
 		});
+
+		console.log(turns);
 
 		set(turns);
 	}

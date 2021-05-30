@@ -41,7 +41,8 @@
 						triumph,
 						advantage
 					},
-					uid: $uid
+					uid: $uid,
+					incapacitated: false
 				}
 			]);
 		}
@@ -59,7 +60,8 @@
 						triumph,
 						advantage
 					},
-					uid: $uid
+					uid: $uid,
+					incapacitated: false
 				}
 			]);
 		}

@@ -25,8 +25,10 @@
 	export let enemy = false;
 
 	let activeDisable = false;
+	let activated = false;
 
 	$: disableActive($currentTurn);
+	$: checkActive($currentlyActive);
 
 	function addBoost(e) {
 		if (e.ctrlKey) {
@@ -103,6 +105,9 @@
 			players.update(playerArray => {
 				let newPlayerArray = playerArray;
 				newPlayerArray[id].wound += 1;
+				if (newPlayerArray[id].wound >= woundThreshold) {
+					newPlayerArray[id].incapacitated = true;
+				}
 				return [...newPlayerArray];
 			});
 		}
@@ -123,12 +128,23 @@
 			players.update(playerArray => {
 				let newPlayerArray = playerArray;
 				newPlayerArray[id].wound -= 1;
+
+				// Check if less than full healt and set incapacitated to false
+				if (
+					newPlayerArray[id].wound < woundThreshold &&
+					newPlayerArray[id].incapacitated
+				) {
+					newPlayerArray[id].incapacitated = false;
+				}
+
+				// Remove if wounds are less than 0
 				if (newPlayerArray[id].wound < 0) {
 					newPlayerArray.splice(id, 1);
 					if ($currentTurnNumber === $allTurns.length) {
 						startNextRound();
 					}
 				}
+
 				return [...newPlayerArray];
 			});
 		}
@@ -145,18 +161,30 @@
 	}
 
 	function disableActive(currentTurn) {
-		if (currentTurn.type === 'player' && enemy) {
+		if (currentTurn?.type === 'player' && enemy) {
 			activeDisable = true;
 		}
-		if (currentTurn.type === 'player' && player) {
+		if (currentTurn?.type === 'player' && player) {
 			activeDisable = false;
 		}
-		if (currentTurn.type === 'enemy' && player) {
+		if (currentTurn?.type === 'enemy' && player) {
 			activeDisable = true;
 		}
-		if (currentTurn.type === 'enemy' && enemy) {
+		if (currentTurn?.type === 'enemy' && enemy) {
 			activeDisable = false;
 		}
+	}
+
+	function checkActive(currentlyActive) {
+		if (currentlyActive?.id === id) {
+			if (player && $currentTurn.type === 'player') {
+				activated = true;
+			}
+			if (enemy && $currentTurn.type === 'enemy') {
+				activated = true;
+			}
+		}
+		activated = false;
 	}
 
 	function makeActive() {
@@ -166,6 +194,7 @@
 		) {
 			if ($currentlyActive.id === id) {
 				currentlyActive.set({ boosts: 0, setbacks: 0, id: undefined });
+				activated = false;
 				return;
 			}
 			currentlyActive.set({
@@ -173,6 +202,7 @@
 				setbacks: setbackDice,
 				id: id
 			});
+			activated = true;
 		}
 	}
 
@@ -211,11 +241,7 @@
 			{activeDisable}
 			small
 			color="var(--other-action-color)"
-			label={((player && $currentTurn.type === 'player') ||
-				(enemy && $currentTurn.type === 'enemy')) &&
-			$currentlyActive.id === id
-				? 'Active'
-				: 'Activate'}
+			label={activated ? 'Active' : 'Activate'}
 		/>
 		<Button
 			on:click={addSetback}
