@@ -13,6 +13,7 @@
 		currentRound
 	} from '../../stores/TurnStore.js';
 	import { currentlyActive } from '../../stores/BoostStore.js';
+	import { loop_guard } from 'svelte/internal';
 
 	export let id = undefined;
 	export let name = '';
@@ -181,6 +182,7 @@
 	}
 
 	function checkActive(currentlyActive) {
+		console.log(currentlyActive);
 		if (currentlyActive?.id === id) {
 			if (player && $currentTurn.type === 'player') {
 				activated = true;
@@ -188,8 +190,9 @@
 			if (enemy && $currentTurn.type === 'enemy') {
 				activated = true;
 			}
+		} else {
+			activated = false;
 		}
-		activated = false;
 	}
 
 	function makeActive() {
@@ -199,7 +202,6 @@
 		) {
 			if ($currentlyActive.id === id) {
 				currentlyActive.set({ boosts: 0, setbacks: 0, id: undefined });
-				activated = false;
 				return;
 			}
 			currentlyActive.set({
@@ -207,7 +209,6 @@
 				setbacks: setbackDice,
 				id: id
 			});
-			activated = true;
 		}
 	}
 
