@@ -5,7 +5,8 @@
 		currentTurnNumber,
 		currentRound,
 		allTurns,
-		currentTurn
+		currentTurn,
+		lastIncapacitated
 	} from '../stores/TurnStore.js';
 	import {
 		nextPlayerBoosts,
@@ -20,7 +21,7 @@
 
 	function endTurn() {
 		// Removes current dice from currently active player.
-		if ($currentTurn.type === 'player') {
+		if ($currentTurn?.type === 'player') {
 			players.update(players =>
 				players.map((player, index) => {
 					if (index === $currentlyActive.id) {
@@ -32,7 +33,7 @@
 		}
 
 		// Removes current dice from currently active enemy.
-		if ($currentTurn.type === 'enemy') {
+		if ($currentTurn?.type === 'enemy') {
 			enemies.update(enemies =>
 				enemies.map((enemy, index) => {
 					if (index === $currentlyActive.id) {
@@ -47,7 +48,7 @@
 		currentlyActive.set({ boosts: 0, setbacks: 0, id: undefined });
 
 		// Increase turn number, and change round on final.
-		if ($currentTurnNumber >= $allTurns.length) {
+		if ($currentTurnNumber >= $allTurns.length - $lastIncapacitated) {
 			currentTurnNumber.set(1);
 			currentRound.update(n => n + 1);
 		} else {
@@ -55,13 +56,13 @@
 		}
 
 		// Change boosts to correct value.
-		if ($currentTurn.type === 'player') {
+		if ($currentTurn?.type === 'player') {
 			currentTurnBoosts.set($nextPlayerBoosts);
 			currentTurnSetbacks.set($nextPlayerSetbacks);
 			nextPlayerBoosts.set(0);
 			nextPlayerSetbacks.set(0);
 		}
-		if ($currentTurn.type === 'enemy') {
+		if ($currentTurn?.type === 'enemy') {
 			currentTurnBoosts.set($nextEnemyBoosts);
 			currentTurnSetbacks.set($nextEnemySetbacks);
 			nextEnemyBoosts.set(0);

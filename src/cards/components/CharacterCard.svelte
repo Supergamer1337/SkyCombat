@@ -105,8 +105,13 @@
 			players.update(playerArray => {
 				let newPlayerArray = playerArray;
 				newPlayerArray[id].wound += 1;
+
+				// Make incapacitated if wound higher than max.
 				if (newPlayerArray[id].wound >= woundThreshold) {
 					newPlayerArray[id].incapacitated = true;
+					if ($currentTurnNumber === $allTurns.length) {
+						startNextRound();
+					}
 				}
 				return [...newPlayerArray];
 			});

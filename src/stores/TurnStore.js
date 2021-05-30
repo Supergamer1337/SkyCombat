@@ -32,30 +32,36 @@ export const allTurns = derived(
 		);
 
 		turns.sort(sortTurns);
-		turns = turns.filter(turn => {
-			if (!turn.incapacitated) {
-				return {
-					type: turn.type,
-					boosts: 0,
-					setbacks: 0,
-					uid: turn.uid,
-					incapacitated: turn.incapacitated
-				};
-			}
-		});
-
-		console.log(turns);
-
 		set(turns);
 	}
 );
 
 export const currentTurnNumber = writable(1);
+export const lastIncapacitated = writable(0); // How many was incapacitated last time
 
 const turnsLeft = derived(
-	[allTurns, currentTurnNumber],
-	([$allTurns, $currentTurnNumber], set) => {
+	[allTurns, currentTurnNumber, lastIncapacitated],
+	([$allTurns, $currentTurnNumber, $lastIncapacitated], set) => {
 		let turnsLeft = [...$allTurns];
+
+		// Remove incapacitated characters.
+		turnsLeft = turnsLeft.filter(turn => {
+			if (!turn.incapacitated) {
+				return turn;
+			}
+		});
+
+		let allIncapacitated = $allTurns.length - turnsLeft.length;
+		let newlyIncapacitated = allIncapacitated - $lastIncapacitated;
+
+		console.log(newlyIncapacitated);
+
+		// Check if turns have been removed due to incapacitation.
+		if (newlyIncapacitated > 0 || newlyIncapacitated < 0) {
+			currentTurnNumber.set($currentTurnNumber - newlyIncapacitated);
+			lastIncapacitated.update(n => n + newlyIncapacitated);
+		}
+
 		turnsLeft = turnsLeft.splice($currentTurnNumber - 1); // -1 to as turn number start at 1, and index at 0.
 
 		set(turnsLeft);
