@@ -3,6 +3,7 @@
 	import BoostsCard from './cards/BoostsCard.svelte';
 	import AddBoostsCard from './cards/AddBoostsCard.svelte';
 	import CombatantsCard from './cards/CombatantsCard.svelte';
+	import IssuesOrFeaturesCard from './cards/IssuesOrFeaturesCard.svelte';
 </script>
 
 <div class="container">
@@ -11,6 +12,8 @@
 	<BoostsCard />
 	<RoundCard />
 </div>
+
+<IssuesOrFeaturesCard />
 
 <style>
 	.container {
