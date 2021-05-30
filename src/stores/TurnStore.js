@@ -51,13 +51,11 @@ const turnsLeft = derived(
 			}
 		});
 
-		let allIncapacitated = $allTurns.length - turnsLeft.length;
-		let newlyIncapacitated = allIncapacitated - $lastIncapacitated;
-
-		console.log(newlyIncapacitated);
+		let allIncapacitated = $allTurns.length - turnsLeft.length; // Total amount of incapacitated characters
+		let newlyIncapacitated = allIncapacitated - $lastIncapacitated; // Difference in incapacitated characters
 
 		// Check if turns have been removed due to incapacitation.
-		if (newlyIncapacitated > 0 || newlyIncapacitated < 0) {
+		if (newlyIncapacitated !== 0) {
 			currentTurnNumber.set($currentTurnNumber - newlyIncapacitated);
 			lastIncapacitated.update(n => n + newlyIncapacitated);
 		}
