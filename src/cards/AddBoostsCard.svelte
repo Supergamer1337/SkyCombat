@@ -13,10 +13,10 @@
 	function addToBoostStore(e) {
 		if (e.ctrlKey) {
 			if ($currentTurn.type === 'player') {
-				playerBoosts.update(n => n - 1);
+				playerBoosts.update(n => removeDice(n));
 			}
 			if ($currentTurn.type === 'enemy') {
-				enemyBoosts.update(n => n - 1);
+				enemyBoosts.update(n => removeDice(n));
 			}
 			return;
 		}
@@ -32,10 +32,10 @@
 	function addNextBoost(e) {
 		if (e.ctrlKey) {
 			if ($currentTurn.type === 'player') {
-				nextPlayerBoosts.update(n => n - 1);
+				nextPlayerBoosts.update(n => removeDice(n));
 			}
 			if ($currentTurn.type === 'enemy') {
-				nextEnemyBoosts.update(n => n - 1);
+				nextEnemyBoosts.update(n => removeDice(n));
 			}
 			return;
 		}
@@ -51,10 +51,10 @@
 	function addNextSetback(e) {
 		if (e.ctrlKey) {
 			if ($currentTurn.type === 'player') {
-				nextPlayerSetbacks.update(n => n - 1);
+				nextPlayerSetbacks.update(n => removeDice(n));
 			}
 			if ($currentTurn.type === 'enemy') {
-				nextEnemySetbacks.update(n => n - 1);
+				nextEnemySetbacks.update(n => removeDice(n));
 			}
 			return;
 		}
@@ -64,6 +64,14 @@
 		}
 		if ($currentTurn.type === 'enemy') {
 			nextEnemySetbacks.update(n => n + 1);
+		}
+	}
+
+	function removeDice(currentDiceAmount) {
+		if (currentDiceAmount <= 0) {
+			return 0;
+		} else {
+			return currentDiceAmount - 1;
 		}
 	}
 </script>
