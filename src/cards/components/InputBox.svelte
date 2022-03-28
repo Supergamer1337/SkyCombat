@@ -17,7 +17,8 @@
 <style>
 	.background {
 		z-index: 2;
-		backdrop-filter: brightness(50%);
+		background-color: black;
+		opacity: 0.5;
 		position: fixed;
 		top: 0;
 		left: 0;
