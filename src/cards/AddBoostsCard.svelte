@@ -11,6 +11,8 @@
 		enemySetbacks
 	} from '../stores/BoostStore.js';
 	import { currentTurn } from './../stores/TurnStore';
+	import BoostIcon from './components/BoostIcon.svelte';
+	import SetbackIcon from './components/SetbackIcon.svelte';
 
 	function addToBoostStore() {
 		if ($currentTurn.type === 'player') {
@@ -182,6 +184,29 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="section">
+		<p class="title">Existing Dice</p>
+		<div class="existing-dice-row">
+			<p>Player Dice:</p>
+			<p class="dice-print">
+				{$playerBoosts}x<BoostIcon />
+			</p>
+			<p class="dice-print">
+				{$playerSetbacks}x<SetbackIcon />
+			</p>
+		</div>
+
+		<div class="existing-dice-row">
+			<p>Enemy Dice:</p>
+			<p class="dice-print">
+				{$enemyBoosts}x<BoostIcon />
+			</p>
+			<p class="dice-print">
+				{$enemySetbacks}x<SetbackIcon />
+			</p>
+		</div>
+	</div>
 </div>
 
 <style>
@@ -237,5 +262,22 @@
 		flex-direction: row;
 		flex-wrap: wrap;
 		gap: 1rem;
+	}
+
+	.existing-dice-row {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		align-items: center;
+		font-size: 1.4rem;
+		margin-top: 0.5rem;
+	}
+
+	.dice-print {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		align-items: center;
 	}
 </style>
