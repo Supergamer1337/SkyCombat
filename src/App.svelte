@@ -9,7 +9,6 @@
 <div class="container">
 	<CombatantsCard />
 	<AddBoostsCard />
-	<BoostsCard />
 	<RoundCard />
 </div>
 
@@ -20,7 +19,7 @@
 		display: grid;
 		grid-template-areas:
 			'a a b c'
-			'a a d c';
+			'a a b c';
 		grid-template-rows: auto 1fr;
 		grid-template-columns: 1fr 1fr 1fr 1fr;
 		grid-gap: 2em;
@@ -32,7 +31,7 @@
 		.container {
 			grid-template-areas:
 				'a b c'
-				'a d c';
+				'a b c';
 
 			grid-template-columns: 1.5fr 25rem 1fr;
 		}
@@ -42,7 +41,7 @@
 		.container {
 			grid-template-areas:
 				'b c'
-				'd c'
+				'b c'
 				'a a';
 
 			grid-template-columns: 1fr 1fr;
@@ -56,7 +55,7 @@
 				'c'
 				'c'
 				'b'
-				'd'
+				'b'
 				'a';
 
 			grid-template-columns: 1fr;
@@ -73,8 +72,5 @@
 	}
 	.container :global(.c) {
 		grid-area: c;
-	}
-	.container :global(.d) {
-		grid-area: d;
 	}
 </style>

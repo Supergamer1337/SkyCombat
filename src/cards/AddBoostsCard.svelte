@@ -6,21 +6,13 @@
 		nextPlayerBoosts,
 		nextEnemyBoosts,
 		nextPlayerSetbacks,
-		nextEnemySetbacks
+		nextEnemySetbacks,
+		playerSetbacks,
+		enemySetbacks
 	} from '../stores/BoostStore.js';
 	import { currentTurn } from './../stores/TurnStore';
 
-	function addToBoostStore(e) {
-		if (e.ctrlKey) {
-			if ($currentTurn.type === 'player') {
-				playerBoosts.update(n => removeDice(n));
-			}
-			if ($currentTurn.type === 'enemy') {
-				enemyBoosts.update(n => removeDice(n));
-			}
-			return;
-		}
-
+	function addToBoostStore() {
 		if ($currentTurn.type === 'player') {
 			playerBoosts.update(n => n + 1);
 		}
@@ -29,17 +21,34 @@
 		}
 	}
 
-	function addNextBoost(e) {
-		if (e.ctrlKey) {
-			if ($currentTurn.type === 'player') {
-				nextPlayerBoosts.update(n => removeDice(n));
-			}
-			if ($currentTurn.type === 'enemy') {
-				nextEnemyBoosts.update(n => removeDice(n));
-			}
-			return;
+	function removeFromBoostStore() {
+		if ($currentTurn.type === 'player') {
+			playerBoosts.update(n => removeDice(n));
 		}
+		if ($currentTurn.type === 'enemy') {
+			enemyBoosts.update(n => removeDice(n));
+		}
+	}
 
+	function addToSetbackStore() {
+		if ($currentTurn.type === 'player') {
+			playerSetbacks.update(n => n + 1);
+		}
+		if ($currentTurn.type === 'enemy') {
+			enemySetbacks.update(n => n + 1);
+		}
+	}
+
+	function removeFromSetbackStore() {
+		if ($currentTurn.type === 'player') {
+			playerSetbacks.update(n => removeDice(n));
+		}
+		if ($currentTurn.type === 'enemy') {
+			enemySetbacks.update(n => removeDice(n));
+		}
+	}
+
+	function addNextBoost() {
 		if ($currentTurn.type === 'player') {
 			nextPlayerBoosts.update(n => n + 1);
 		}
@@ -48,23 +57,33 @@
 		}
 	}
 
-	function addNextSetback(e) {
-		if (e.ctrlKey) {
-			if ($currentTurn.type === 'player') {
-				nextPlayerSetbacks.update(n => removeDice(n));
-			}
-			if ($currentTurn.type === 'enemy') {
-				nextEnemySetbacks.update(n => removeDice(n));
-			}
-			return;
+	function removeNextBoost() {
+		if ($currentTurn.type === 'player') {
+			nextPlayerBoosts.update(n => removeDice(n));
 		}
+		if ($currentTurn.type === 'enemy') {
+			nextEnemyBoosts.update(n => removeDice(n));
+		}
+		return;
+	}
 
+	function addNextSetback() {
 		if ($currentTurn.type === 'player') {
 			nextPlayerSetbacks.update(n => n + 1);
 		}
 		if ($currentTurn.type === 'enemy') {
 			nextEnemySetbacks.update(n => n + 1);
 		}
+	}
+
+	function removeNextSetback() {
+		if ($currentTurn.type === 'player') {
+			nextPlayerSetbacks.update(n => removeDice(n));
+		}
+		if ($currentTurn.type === 'enemy') {
+			nextEnemySetbacks.update(n => removeDice(n));
+		}
+		return;
 	}
 
 	function removeDice(currentDiceAmount) {
@@ -77,28 +96,91 @@
 </script>
 
 <div class="card b">
-	<p class="title">Next Ally</p>
+	<p class="title">Boosts & Setbacks</p>
 
-	<div class="button-container">
-		<Button
-			on:click={addNextBoost}
-			color="var(--boost-color)"
-			label="Boost"
-		/>
-		<Button
-			on:click={addNextSetback}
-			color="var(--setback-color)"
-			label="Setback"
-		/>
-	</div>
+	<div class="section">
+		<p class="title">Adding New</p>
+		<div class="subsection">
+			<p class="title">Next Turn</p>
+			<div class="horizontal">
+				<div class="labeled-button-group-container">
+					<div class="button-container">
+						<Button
+							on:click={addNextBoost}
+							color="var(--boost-color)"
+							label="+"
+							icon
+						/>
+						<Button
+							on:click={removeNextBoost}
+							color="var(--boost-color)"
+							label="-"
+							icon
+						/>
+					</div>
+					<p class="labeled-button-group-label">Boosts</p>
+				</div>
 
-	<p class="title" style="margin-top: 1em;">Anyone's Turn</p>
-	<div class="button-container">
-		<Button
-			on:click={addToBoostStore}
-			color="var(--boost-color)"
-			label="Boost"
-		/>
+				<div class="labeled-button-group-container">
+					<div class="button-container">
+						<Button
+							on:click={addNextSetback}
+							color="var(--setback-color)"
+							label="+"
+							icon
+						/>
+						<Button
+							on:click={removeNextSetback}
+							color="var(--setback-color)"
+							label="-"
+							icon
+						/>
+					</div>
+					<p class="labeled-button-group-label">Setback</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="subsection">
+			<p class="title">Anyone's turn</p>
+			<div class="horizontal">
+				<div class="labeled-button-group-container">
+					<div class="button-container">
+						<Button
+							on:click={addToBoostStore}
+							color="var(--boost-color)"
+							label="+"
+							icon
+						/>
+						<Button
+							on:click={removeFromBoostStore}
+							color="var(--boost-color)"
+							label="-"
+							icon
+						/>
+					</div>
+					<p class="labeled-button-group-label">Boosts</p>
+				</div>
+
+				<div class="labeled-button-group-container">
+					<div class="button-container">
+						<Button
+							on:click={addToSetbackStore}
+							color="var(--setback-color)"
+							label="+"
+							icon
+						/>
+						<Button
+							on:click={removeFromSetbackStore}
+							color="var(--setback-color)"
+							label="-"
+							icon
+						/>
+					</div>
+					<p class="labeled-button-group-label">Setback</p>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -106,20 +188,54 @@
 	.card {
 		background-color: var(--secondary-background);
 		color: var(--primary-text);
-		padding: 2em;
+		padding: 2rem;
 		border-radius: var(--primary-rounding);
-		height: 21.4rem;
 	}
 
 	.title {
-		font-size: 1.2rem;
+		font-size: 2rem;
 		font-weight: 600;
 	}
 
 	.button-container {
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: space-between;
-		margin-top: 0.5em;
+		justify-content: left;
+		margin-top: 0.5rem;
+		gap: 0.5rem;
+	}
+
+	.labeled-button-group-container {
+		width: fit-content;
+	}
+
+	.labeled-button-group-label {
+		text-align: center;
+		font-size: 1.1rem;
+		margin-top: 0.5rem;
+	}
+
+	.section {
+		margin-top: 1rem;
+	}
+
+	.section .title {
+		font-size: 1.6rem;
+	}
+
+	.subsection {
+		margin-top: 0.5rem;
+	}
+
+	.subsection .title {
+		font-weight: normal;
+		font-size: 1.4rem;
+	}
+
+	.horizontal {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: 1rem;
 	}
 </style>

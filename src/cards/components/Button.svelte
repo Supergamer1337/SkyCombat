@@ -1,6 +1,7 @@
 <script>
 	export let big = false;
 	export let small = false;
+	export let icon = false;
 
 	export let label = '';
 	export let color = '';
@@ -14,6 +15,7 @@
 	on:click
 	class:small
 	class:big
+	class:icon
 	style="background-color: {color}"
 >
 	{label}
@@ -59,6 +61,17 @@
 	.small {
 		width: 5.5em;
 		height: 3em;
+	}
+
+	.icon {
+		width: 3rem;
+		height: 3rem;
+		font-size: 2rem;
+		font-weight: bold;
+	}
+
+	.icon:hover::before {
+		width: 140%;
 	}
 
 	.activeDisable {
